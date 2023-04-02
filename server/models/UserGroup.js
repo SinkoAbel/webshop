@@ -11,6 +11,4 @@ const userGroupSchema = new mongoose.Schema({
     }]
 });
 
-const UserGroup = mongoose.model('UserGroup', userGroupSchema);
-
-module.exports = UserGroup;
+export default mongoose.model('UserGroup', userGroupSchema);

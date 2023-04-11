@@ -1,6 +1,5 @@
-import User from "../models/User";
-import UserGroup from "../models/UserGroup";
-import { createError } from "../utils/error";
+import User from "../models/User.js";
+import { createError } from "../utils/error.js";
 
 // Get all users
 export const getUsers = async (req, res, next) => {

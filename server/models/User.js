@@ -15,9 +15,9 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    userGroup: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'UserGroup'
+    isAdmin: {
+        type: Boolean,
+        default: false,
     }
 });
 

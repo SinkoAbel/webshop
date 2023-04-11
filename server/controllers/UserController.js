@@ -1,22 +1,94 @@
-// const bcrypt = require("bcryptjs");
-// userSchema.pre('save', async function(next) {
-//     try {
-//         if (!this.isModified('password')) {
-//             return next();
-//         }
-//         const hashed = await bcrypt.hash(this.password, 10);
-//         this.password = hashed;
-//         return next();
-//     } catch (err) {
-//         return next(err);
-//     }
-// });
-//
-// userSchema.methods.comparePassword = async function(candidate, next) {
-//     try {
-//         const isMatch = await bcrypt.compare(candidate, this.password);
-//         return isMatch;
-//     } catch (err) {
-//         return next(err);
-//     }
-// }
+import User from "../models/User";
+import UserGroup from "../models/UserGroup";
+import { createError } from "../utils/error";
+
+// Get all users
+export const getUsers = async (req, res, next) => {
+    try {
+        const users = await User.find().populate("userGroup", "-__v");
+        res.status(200).json(users);
+    } catch (err) {
+        next(err);
+    }
+};
+
+// Get user by ID
+export const getUserById = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.userId).populate("userGroup", "-__v");
+        if (!user) {
+            throw createError(404, "User not found");
+        }
+        res.status(200).json(user);
+    } catch (err) {
+        next(err);
+    }
+};
+
+// Create new user
+export const createUser = async (req, res, next) => {
+    const { username, password, email, userGroupId } = req.body;
+    try {
+        // Check if user already exists
+        const existingUser = await User.findOne({ $or: [{ username }, { email }] });
+        if (existingUser) {
+            throw createError(400, "Username or email already exists");
+        }
+        // Check if user group exists
+        const userGroup = await UserGroup.findById(userGroupId);
+        if (!userGroup) {
+            throw createError(400, "User group not found");
+        }
+        const user = new User({ username, password, email, userGroup: userGroup._id });
+        const result = await user.save();
+        res.status(201).json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
+// Update user by ID
+export const updateUserById = async (req, res, next) => {
+    const { username, password, email, userGroupId } = req.body;
+    try {
+        const user = await User.findById(req.params.userId);
+        if (!user) {
+            throw createError(404, "User not found");
+        }
+        // Check if new username or email already exists
+        const existingUser = await User.findOne({
+            $or: [{ username, _id: { $ne: user._id } }, { email, _id: { $ne: user._id } }],
+        });
+        if (existingUser) {
+            throw createError(400, "Username or email already exists");
+        }
+        // Check if new user group exists
+        if (userGroupId) {
+            const userGroup = await UserGroup.findById(userGroupId);
+            if (!userGroup) {
+                throw createError(400, "User group not found");
+            }
+            user.userGroup = userGroup._id;
+        }
+        user.username = username || user.username;
+        user.password = password || user.password;
+        user.email = email || user.email;
+        const result = await user.save();
+        res.status(200).json(result);
+    } catch (err) {
+        next(err);
+    }
+};
+
+// Delete user by ID
+export const deleteUserById = async (req, res, next) => {
+    try {
+        const user = await User.findByIdAndDelete(req.params.userId);
+        if (!user) {
+            throw createError(404, "User not found");
+        }
+        res.status(200).json({ message: "User deleted successfully" });
+    } catch (err) {
+        next(err);
+    }
+};

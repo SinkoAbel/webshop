@@ -1,13 +1,36 @@
 import Order from '../models/Order.js';
 import Product from '../models/Product.js';
-import createError from '../utils/error.js';
+import { createError } from '../utils/error.js';
 
 export const getAllOrders = async (req, res, next) => {
     try {
+        if (!req.user.isAdmin) {
+            return next(createError(403, 'Nincs jogosultság a művelet végrehajtásához.'));
+        }
         const orders = await Order.find().populate('product');
         res.status(200).json(orders);
     } catch (error) {
         next(createError(500, 'A rendelések lekérdezése sikertelen.'));
+    }
+};
+
+export const getOrderById = async (req, res, next) => {
+    const { id } = req.params;
+
+    try {
+        const order = await Order.findById(id);
+
+        if (!order) {
+            return next(createError(404, 'A megadott azonosítóval nincs rendelés.'));
+        }
+
+        if (req.user.isAdmin || req.user._id.toString() === order.user.toString()) {
+            res.status(200).json(order);
+        } else {
+            return next(createError(403, 'Nincs jogosultság a művelet végrehajtásához.'));
+        }
+    } catch (error) {
+        next(createError(500, 'A rendelés lekérdezése sikertelen.'));
     }
 };
 
@@ -25,17 +48,17 @@ export const createOrder = async (req, res, next) => {
             return next(createError(404, 'A megadott azonosítóval nincs termék.'));
         }
 
-        if (product.quantity < quantity) {
+        if (product.stock < quantity) {
             return next(createError(400, 'A kívánt mennyiség nem áll rendelkezésre.'));
         }
 
-        product.quantity -= quantity;
+        product.stock -= quantity;
         await product.save();
 
         const order = new Order({
             product: productId,
             quantity,
-            user: req.user._id
+            user: req.user._id,
         });
 
         const savedOrder = await order.save();
@@ -58,7 +81,7 @@ export const deleteOrder = async (req, res, next) => {
 
         if (req.user.isAdmin || req.user._id.toString() === order.user.toString()) {
             const product = await Product.findById(order.product);
-            product.quantity += order.quantity;
+            product.stock += order.quantity;
             await product.save();
 
             await order.remove();
@@ -69,5 +92,43 @@ export const deleteOrder = async (req, res, next) => {
         }
     } catch (error) {
         next(createError(500, 'A rendelés törlése sikertelen.'));
+    }
+};
+
+export const updateOrder = async (req, res, next) => {
+    const { id } = req.params;
+    const { quantity } = req.body;
+
+    if (!quantity) {
+        return next(createError(400, 'A mennyiség megadása kötelező.'));
+    }
+
+    try {
+        const order = await Order.findById(id);
+
+        if (!order) {
+            return next(createError(404, 'A megadott azonosítóval nincs rendelés.'));
+        }
+
+        if (req.user.isAdmin || req.user._id.toString() === order.user.toString()) {
+            const product = await Product.findById(order.product);
+
+            if (product.stock + order.quantity < quantity) {
+                return next(createError(400, 'A kívánt mennyiség nem áll rendelkezésre.'));
+            }
+
+            product.stock += order.quantity;
+            product.stock -= quantity;
+            await product.save();
+
+            order.quantity = quantity;
+            const savedOrder = await order.save();
+
+            res.status(200).json(savedOrder);
+        } else {
+            return next(createError(403, 'Nincs jogosultság a művelet végrehajtásához.'));
+        }
+    } catch (error) {
+        next(createError(500, 'A rendelés módosítása sikertelen.'));
     }
 };

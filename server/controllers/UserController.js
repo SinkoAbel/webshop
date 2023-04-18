@@ -25,20 +25,16 @@ export const getUserById = async (req, res, next) => {
 };
 
 // Create new user
-export const createUser = async (req, res, next) => {
-    const { username, password, email, userGroupId } = req.body;
+export const createAdmin = async (req, res, next) => {
+    const { username, password, email } = req.body;
+    const isAdmin = true;
     try {
         // Check if user already exists
         const existingUser = await User.findOne({ $or: [{ username }, { email }] });
         if (existingUser) {
-            throw createError(400, "Username or email already exists");
+            next(createError(400, "Username or email already exists"));
         }
-        // Check if user group exists
-        const userGroup = await UserGroup.findById(userGroupId);
-        if (!userGroup) {
-            throw createError(400, "User group not found");
-        }
-        const user = new User({ username, password, email, userGroup: userGroup._id });
+        const user = new User({ username, password, email, isAdmin });
         const result = await user.save();
         res.status(201).json(result);
     } catch (err) {

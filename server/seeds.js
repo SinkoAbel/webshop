@@ -11,6 +11,7 @@ const users = [
         username: 'admin',
         password: 'admin',
         email: 'admin@example.com',
+        isAdmin: true,
     },
     {
         username: 'user1',

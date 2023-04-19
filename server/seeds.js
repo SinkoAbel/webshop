@@ -79,18 +79,21 @@ async function seedDB() {
         const createdCategories = await Category.insertMany(categories);
         console.log('Test categories added to the database');
 
-        // Hozzáadjuk a teszt termékeket
-        for (const productData of products) {
-            const category = createdCategories.find(c => c.category_name === productData.category_name);
-            if (category) {
-                const product = new Product({ ...productData, category_id: category._id });
-                await product.save();
-            } else {
-                console.warn(`Category not found for product: ${productData.product_name}`);
-            }
-        }
-        console.log('Test products added to the database');
+        // KÉszítünk egy category_name -> _id map -et
+        const categoryNameToIdMap = new Map();
+        createdCategories.forEach(category => {
+            categoryNameToIdMap.set(category.category_name, category._id);
+        });
 
+        // Hozzárendeljük a category_id -ét a termék category_name mezőjéhez
+        const productsWithCategoryId = products.map(product => ({
+            ...product,
+            category_id: categoryNameToIdMap.get(product.category_name),
+        }));
+
+        // Hozzáadjuk a teszt termékeket
+        await Product.insertMany(productsWithCategoryId);
+        console.log('Products added to the database');
 
         await mongoose.disconnect();
     } catch (error) {

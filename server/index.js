@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import authRoute from "./routes/auth.js";
 import productsRoute from "./routes/products.js";
 import ordersRoute from "./routes/orders.js";
+import cors from "cors";
 
 const app = express();
 dotenv.config();
@@ -22,6 +23,7 @@ mongoose.connection.on("disconnect", () =>{
 });
 
 app.use(express.json());
+app.use(cors());
 
 app.use("/api/auth", authRoute);
 app.use("/api/products", productsRoute);

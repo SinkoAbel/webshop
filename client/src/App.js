@@ -5,6 +5,7 @@ import Login from './components/screens/Login';
 import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Products from './components/screens/Products';
 import Registration from './components/screens/Registration';
+import Logout from "./components/screens/Logout";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path='/login' element={<Login/>}/>
             <Route path='/products' element={<Products/>}/>
             <Route path='/registration' element={<Registration/>}/>
+            <Route path='/logout' element={<Logout/>}/>
           </Routes>
       </div>
     </Router>

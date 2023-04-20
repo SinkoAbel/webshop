@@ -24,21 +24,25 @@ export const register = async (req, res, next) => {
 };
 
 export const login = async (req, res, next) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ email });
     if (!user) {
-      throw createError(404, 'User not found');
+      next(createError(404, 'User not found'));
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (!isPasswordCorrect) {
-      throw createError(401, 'Invalid credentials');
+      next(createError(401, 'Invalid credentials'));
     }
 
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.status(200).json({ message: 'Login successful', token });
+    res.status(200).json({
+      username: user.username,
+      email: user.email,
+      isAdmin: user.isAdmin,
+      _id: user._id,
+    });
   } catch (error) {
     res.status(error.status || 500).json({ message: error.message || 'Something went wrong' });
   }

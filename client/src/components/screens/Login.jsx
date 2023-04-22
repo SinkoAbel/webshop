@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setEmail, setPassword, login } from "../../reducers/loginSlice";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import ErrorAlert from "../elements/ErrorAlert";
+import SuccessAlert from "../elements/SuccessAlert";
 
 const Login = () => {
 
@@ -58,7 +60,7 @@ const Login = () => {
 
     return (
     <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-r from-purple-500 to-pink-500 space-y-10 py-12 px-4 sm:px-6 lg:px-8 ">
-          <div className="max-w-md w-full h-[400px] mx-auto bg-white shadow-lg rounded-lg p-7 space-y-6 mt-[-150px]">
+          <div className="max-w-md w-full h-[450px] mx-auto bg-white shadow-lg rounded-lg p-7 space-y-6 mt-[-150px]">
             <form action="" className="text-left">
               <h2 className="text-blue-700 text-3xl font-semibold my-3">Bejelentkezés</h2>
               <label className="text-sm font-bold text-blue-800 mt-3" htmlFor="email">Jelentkezz be a termékek megrendeléséhez.</label>
@@ -72,10 +74,12 @@ const Login = () => {
             </div>
             <div className="mt-4">
               { loginSuccessful &&
-                  <p className="text-green-500 bg-green-100 pl-4">Sikeres bejelentkezés!</p>
+                  <SuccessAlert>Sikeres bejelentkezés!</SuccessAlert>
               }
               { wrongCredentials &&
-                  <p className="text-red-500 bg-red-100 pl-4">Hibás email cím vagy jelszó!</p>
+                  <ErrorAlert>
+                      Hibás email cím vagy jelszó!
+                  </ErrorAlert>
               }
             </div>
             <div className="mt-4">

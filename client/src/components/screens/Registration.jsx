@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setEmail, setPassword, setUsername } from "../../reducers/registerSlice";
 import {login} from "../../reducers/loginSlice";
 import axios from "axios";
+import ErrorAlert from "../elements/ErrorAlert";
 
 const Registration = () => {
     const endpoint = "http://localhost:8800/api/auth/register";
@@ -89,7 +90,9 @@ const Registration = () => {
                         Regisztrálok
                     </button>
                     {!passwordsMatch &&
-                        <p className="bg-red-200 pl-4 text-red-600 rounded mt-3">A jelszavak nem egyeznek!</p>
+                        <ErrorAlert>
+                            A jelszavak nem egyeznek!
+                        </ErrorAlert>
                     }
                     {successfulRegistration &&
                         <p className="bg-green-200 pl-4 text-green-600 rounded mt-3">Sikeres regisztráció!</p>

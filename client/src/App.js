@@ -7,6 +7,7 @@ import Products from './components/screens/Products';
 import Registration from './components/screens/Registration';
 import Logout from "./components/screens/Logout";
 import Cart from "./components/screens/Cart";
+import Orders from "./components/screens/Orders";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path='/registration' element={<Registration/>}/>
             <Route path='/logout' element={<Logout/>}/>
             <Route path="/cart" element={<Cart/>}/>
+            <Route path="/orders" element={<Orders/>}/>
           </Routes>
       </div>
     </Router>

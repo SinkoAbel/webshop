@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Products from './components/screens/Products';
 import Registration from './components/screens/Registration';
 import Logout from "./components/screens/Logout";
+import Cart from "./components/screens/Cart";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
             <Route path='/products' element={<Products/>}/>
             <Route path='/registration' element={<Registration/>}/>
             <Route path='/logout' element={<Logout/>}/>
+            <Route path="/cart" element={<Cart/>}/>
           </Routes>
       </div>
     </Router>

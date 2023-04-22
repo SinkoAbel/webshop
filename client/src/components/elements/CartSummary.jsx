@@ -1,6 +1,15 @@
 import React from 'react';
+import {nextPhase} from "../../reducers/cartSlice";
+import {useDispatch} from "react-redux";
 
 const CartSummary = (props) => {
+
+    const dispatch = useDispatch();
+
+    const handleOrderProductsButton = () => {
+      dispatch(nextPhase());
+    };
+
     return (
         <>
             <div className="container mx-auto mt-10">
@@ -132,7 +141,7 @@ const CartSummary = (props) => {
                                 <span>Összesen fizetendő</span>
                                 <span>$600</span>
                             </div>
-                            <button
+                            <button onClick={handleOrderProductsButton}
                                 className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Megrendelés
                             </button>
                         </div>

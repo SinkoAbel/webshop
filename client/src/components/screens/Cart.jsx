@@ -2,7 +2,9 @@ import React from 'react';
 import OrderProcessStepper from "../elements/OrderProcessStepper";
 import CartSummary from "../elements/CartSummary";
 import {useSelector} from "react-redux";
-import Home from "./Home";
+import PersonalDataForm from "../elements/PersonalDataForm";
+import ValidatePersonalData from "../elements/ValidatePersonalData";
+import OrderConfirmation from "../elements/OrderConfirmation";
 
 const Cart = (props) => {
 
@@ -14,7 +16,13 @@ const Cart = (props) => {
             currentPhaseElement = <CartSummary/>;
             break;
         case 2:
-            //
+            currentPhaseElement = <PersonalDataForm/>;
+            break;
+        case 3:
+            currentPhaseElement = <ValidatePersonalData/>;
+            break;
+        case 4:
+            currentPhaseElement = <OrderConfirmation/>;
             break;
         default:
             currentPhaseElement = <CartSummary/>;

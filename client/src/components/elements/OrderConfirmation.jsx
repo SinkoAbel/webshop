@@ -5,8 +5,6 @@ import axios from "axios";
 
 const OrderConfirmation = (props) => {
 
-    const endpoint = '';
-
     const dispatch = useDispatch();
     dispatch(clearState());
 

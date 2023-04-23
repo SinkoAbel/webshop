@@ -5,6 +5,8 @@ const ValidatePersonalData = (props) => {
 
     const dispatch = useDispatch();
 
+    const endpoint = '';
+
     return (
         <div>
             <div className="flex justify-center mt-5">

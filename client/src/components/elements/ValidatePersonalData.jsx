@@ -4,11 +4,41 @@ import {useDispatch, useSelector} from "react-redux";
 const ValidatePersonalData = (props) => {
 
     const dispatch = useDispatch();
+    const {lastName, firstName, zip, city, street, houseNumber, phone} = useSelector((state) => state.personalData);
 
     const endpoint = '';
 
     return (
         <div>
+            <div className="mt-10">
+                <dl className="text-gray-900 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
+                    <div className="flex flex-col pb-3">
+                        <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Név:</dt>
+                        <dd className="text-lg font-semibold">{lastName + ' ' + firstName}</dd>
+                    </div>
+                    <div className="flex flex-col py-3">
+                        <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Lakcím</dt>
+                        <dd className="text-lg font-semibold">{zip + ', ' + city + ', ' + street + ' ' + houseNumber}</dd>
+                    </div>
+                    <div className="flex flex-col pt-3">
+                        <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Telefonszám:</dt>
+                        <dd className="text-lg font-semibold">{phone}</dd>
+                    </div>
+                    <div className="flex flex-col pt-3">
+                        <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Megrendelt termékek:</dt>
+                        <dd className="text-lg font-semibold">Iphone töltő - 10.000 Ft</dd>
+                    </div>
+                    <div className="flex flex-col pt-3">
+                        <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Szállítás:</dt>
+                        <dd className="text-lg font-semibold">Standard szállítás - 1000 Ft</dd>
+                    </div>
+                    <div className="flex flex-col pt-3">
+                        <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Összesen fizetendő:</dt>
+                        <dd className="text-lg font-semibold">11.000 Ft</dd>
+                    </div>
+                </dl>
+            </div>
+
             <div className="flex justify-center mt-5">
                 <button type="button" onClick={props.previousPhase}
                         className="cursor-pointer mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

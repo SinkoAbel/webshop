@@ -1,7 +1,6 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 import {clearState} from "../../reducers/personalDataSlice";
-import axios from "axios";
 
 const OrderConfirmation = (props) => {
 

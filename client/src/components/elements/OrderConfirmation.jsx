@@ -1,9 +1,16 @@
 import React from 'react';
+import {useDispatch} from "react-redux";
+import {clearState} from "../../reducers/personalDataSlice";
 
 const OrderConfirmation = (props) => {
+
+    const dispatch = useDispatch();
+    dispatch(clearState());
+
     return (
-        <div>
-            
+        <div className="mt-10">
+            <p>Köszönjük, hogy minket választott!</p>
+            <p>Rendelését sikeresen rögzítettük a rendszerünkben!</p>
         </div>
     );
 };

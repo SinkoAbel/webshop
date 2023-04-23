@@ -1,13 +1,12 @@
 import React from 'react';
-import {nextPhase} from "../../reducers/cartSlice";
-import {useDispatch} from "react-redux";
+import {useNavigate} from "react-router-dom";
 
 const CartSummary = (props) => {
 
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const handleOrderProductsButton = () => {
-      dispatch(nextPhase());
+    const continueShopping = () => {
+        navigate("/products");
     };
 
     return (
@@ -113,7 +112,7 @@ const CartSummary = (props) => {
                             <span className="text-center w-1/5 font-semibold text-sm">$150.00</span>
                         </div>
 
-                        <a href="#" className="flex font-semibold text-indigo-600 text-sm mt-10">
+                        <a className="flex font-semibold text-indigo-600 text-sm mt-10 hover:underline cursor-pointer" onClick={continueShopping}>
 
                             <svg className="fill-current mr-2 text-indigo-600 w-4" viewBox="0 0 448 512">
                                 <path
@@ -141,7 +140,7 @@ const CartSummary = (props) => {
                                 <span>Összesen fizetendő</span>
                                 <span>$600</span>
                             </div>
-                            <button onClick={handleOrderProductsButton}
+                            <button onClick={props.nextPhase}
                                 className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Megrendelés
                             </button>
                         </div>

@@ -1,10 +1,9 @@
 import React from 'react';
-import {useSelector} from "react-redux";
 
 const OrderProcessStepper = (props) => {
 
-    const phase = useSelector((state) => state.cart.phase);
-    console.log(phase);
+    const phase = props.phase;
+
     let phaseOne;
     let phaseTwo;
     let phaseThree;

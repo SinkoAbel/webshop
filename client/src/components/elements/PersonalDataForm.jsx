@@ -2,14 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { setLastName, setFirstName, setZip, setCity, setStreet, setHouseNumber, setPhone } from "../../reducers/personalDataSlice";
 import axios from "axios";
+import ErrorAlert from "./ErrorAlert";
 
 const PersonalDataForm = (props) => {
 
     const dispatch = useDispatch();
 
     const zip = useSelector((state) => state.personalData.zip);
+    const { lastName, firstName, city, street, houseNumber, phone } = useSelector((state) => state.personalData);
+
     const getCityEndpoint = `https://hur.webmania.cc/zips/${zip}.json`;
     const [cityName, setCityName] = useState('');
+    const [formIsCorrect, setFormIsCorrect] = useState(true);
 
     useEffect(() => {
         if (zip.length === 4) {
@@ -56,6 +60,19 @@ const PersonalDataForm = (props) => {
         const phoneNumber = event.target.value;
         dispatch(setPhone(phoneNumber));
     };
+
+    const validateForm = () => {
+        if (lastName === '' || firstName === '' || zip === '' || city === '' || street === '' || houseNumber === '' || phone === '') {
+            setFormIsCorrect(false);
+            return;
+        }
+        if (zip.length !== 4) {
+            setFormIsCorrect(false);
+            return;
+        }
+        setFormIsCorrect(true);
+        props.nextPhase();
+    }
 
     return (
         <div className="mt-10">
@@ -124,11 +141,18 @@ const PersonalDataForm = (props) => {
                             Mobil (+36...)</label>
                     </div>
                 </div>
+                { !formIsCorrect &&
+                    <div className="max-w-[500px] m-auto">
+                        <ErrorAlert>
+                            Nem töltötte ki megfelelően az űrlapot. Ellenőrizze, hogy a megadott adatok helyesek-e.
+                        </ErrorAlert>
+                    </div>
+                }
                 <button type="button" onClick={props.previousPhase}
                         className="cursor-pointer mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Vissza
                 </button>
-                <button type="button" onClick={props.nextPhase}
+                <button type="submit" onClick={validateForm}
                         className="mx-3 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Következő
                 </button>

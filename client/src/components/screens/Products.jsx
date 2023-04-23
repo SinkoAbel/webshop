@@ -33,7 +33,7 @@ const Products = () => {
 
             <div class="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
                 <a href="/product1">
-                    <img class="hover:shadow-lg transition duration-300 transform scale-100 hover:scale-105" src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=400&h=400&q=80" alt="Product 1"/>
+                    <img class="hover:shadow-lg transition duration-300 transform scale-100 hover:scale-105" src="/images/products/vans-shoe.jpg" alt="Product 1"/>
                     <div class="pt-3 flex items-center justify-between">
                         <p class="">Vans Cipő</p>
                         <svg class="h-6 w-6 fill-current text-gray-500 hover:text-black" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">

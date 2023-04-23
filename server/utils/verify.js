@@ -3,7 +3,7 @@ import User from "../models/User.js";
 
 export const verifyUser = async (req, res, next) => {
     try {
-        const userID = req.params.id;
+        const userID = req.headers.userid;
         const user = await User.findById(userID);
 
         if (!user)
@@ -17,8 +17,8 @@ export const verifyUser = async (req, res, next) => {
 
 export const verifyAdmin = async (req, res, next) => {
     try {
-        const userID = req.headers['userId'];
-        if (userID === null)
+        const userID = req.headers.userid;
+        if (userID === null || userID === undefined)
             next(createError(400, "You're not authorized!"));
 
         const user = await User.findById(userID);

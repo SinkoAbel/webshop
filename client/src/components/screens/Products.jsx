@@ -43,7 +43,7 @@ const Products = () => {
                     products.map(product => {
                         return (
                             <div className="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-                                <a href="#">
+                                <a href={'/products/'+product._id}>
                                     <img
                                         className="hover:shadow-lg transition duration-300 transform scale-100 hover:scale-105"
                                         src={product.photo_path} alt="Product 1"/>

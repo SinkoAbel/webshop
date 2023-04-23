@@ -32,6 +32,15 @@ export const personalDataSlice = createSlice({
         },
         setPhone: (state, action) => {
             state.phone = action.payload;
+        },
+        clearState: (state) => {
+            state.lastName = '';
+            state.firstName = '';
+            state.zip = '';
+            state.city = '';
+            state.street = '';
+            state.houseNumber = '';
+            state.phone = '';
         }
    }
 });

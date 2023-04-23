@@ -45,6 +45,6 @@ export const personalDataSlice = createSlice({
    }
 });
 
-export const { setLastName, setFirstName, setZip, setCity, setStreet, setHouseNumber, setPhone } = personalDataSlice.actions;
+export const { setLastName, setFirstName, setZip, setCity, setStreet, setHouseNumber, setPhone, clearState } = personalDataSlice.actions;
 
 export default personalDataSlice.reducer;

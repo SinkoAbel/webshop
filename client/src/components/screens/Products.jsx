@@ -1,17 +1,25 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from "axios";
+import {Link} from "react-router-dom";
 
 const Products = () => {
 
     const endpoint = 'http://localhost:8800/api/products';
     const [products, setProducts] = useState([]);
 
-    axios.get(endpoint)
-        .then((productObj) => {
-            setProducts(productObj.data);
-        }).catch(err => {
-            console.log(err);
-        });
+    useEffect(() => {
+        const fetchEndpoint = async () => {
+            await axios.get(endpoint)
+                .then((productObj) => {
+                    setProducts(productObj.data);
+                }).catch(err => {
+                    console.log(err);
+            });
+        };
+        fetchEndpoint();
+    }, [endpoint]);
+
+
 
     return (
         <section class="bg-white py-8">
@@ -42,8 +50,8 @@ const Products = () => {
                 {
                     products.map(product => {
                         return (
-                            <div className="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col">
-                                <a href={'/products/'+product._id}>
+                            <div className="w-full md:w-1/3 xl:w-1/4 p-6 flex flex-col" key={product._id}>
+                                <Link to={`/products/${product._id}`}>
                                     <img
                                         className="hover:shadow-lg transition duration-300 transform scale-100 hover:scale-105"
                                         src={product.photo_path} alt="Product 1"/>
@@ -56,7 +64,7 @@ const Products = () => {
                                         </svg>
                                     </div>
                                     <p className="pt-1 text-gray-900">Ár: {product.price} Ft</p>
-                                </a>
+                                </Link>
                             </div>
                         );
                     })

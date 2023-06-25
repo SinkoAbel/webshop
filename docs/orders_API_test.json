@@ -1,0 +1,80 @@
+{
+	"info": {
+		"_postman_id": "77ec587b-4353-4bf9-a204-b40e9a910dc1",
+		"name": "webshopAPItests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25168447"
+	},
+	"item": [
+		{
+			"name": "http://localhost:8800/api/orders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "userid",
+						"value": "643edfaf073603ad1444f1b2",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productId\": \"64457826e7c0e5adfb0980f6\",\r\n    \"quantity\": 2,\r\n    \"totalPrice\": 35000,\r\n    \"firstName\": \"Károly\",\r\n    \"lastName\": \"Kiss\",\r\n    \"phone\": \"+12 345 6789\",\r\n    \"zip\": \"4287\",\r\n    \"city\": \"Tornateteje\",\r\n    \"street\": \"Puttony\",\r\n    \"houseNumber\": \"2/B\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8800/api/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8800/api/orders",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "userid",
+						"value": "643edfaf073603ad1444f1b2",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productId\": \"64457826e7c0e5adfb0980f6\",\r\n    \"quantity\": 5,\r\n    \"totalPrice\": 75000,\r\n    \"firstName\": \"Marcel\",\r\n    \"lastName\": \"Nagy\",\r\n    \"phone\": \"+98 765 4321\",\r\n    \"zip\": \"7369\",\r\n    \"city\": \"Felsőzsák\",\r\n    \"street\": \"Tartály\",\r\n    \"houseNumber\": \"27/D\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8800/api/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8800",
+					"path": [
+						"api",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -8,6 +8,7 @@ const ProductPage = (props) => {
     const productId = productIdObject.productId;
     const endpoint = `http://localhost:8800/api/products/${productId}`;
     const [productDetails, setProductDetails] = useState({});
+    const [amount, setAmount] = useState(1);
 
     useEffect(() => {
         const fetchEndpoint = async () => {
@@ -21,8 +22,6 @@ const ProductPage = (props) => {
 
         fetchEndpoint();
     }, [endpoint]);
-
-    const [amount, setAmount] = useState(1);
 
     useEffect(() => {
         if (amount < 1) {

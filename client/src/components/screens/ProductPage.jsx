@@ -33,7 +33,10 @@ const ProductPage = (props) => {
                     <h6 className='text-2xl font-semibold'>Ár: {productDetails.price} Ft.</h6>
                 </div>
                 <div className='flex flex-row items-center gap-12'>
-                    <p>Ide jön a termék mennyiségének a számlálója</p>
+                    <div className='flex flex-row items-center'>
+                        <button className='bg-gray-200 py-2 px-5 rounded-lg text-violet-800 text-3xl'>-</button>
+                        <button className='bg-gray-200 py-2 px-4 rounded-lg text-violet-800 text-3xl'>+</button>
+                    </div>
                     <button className='bg-violet-800 text-white font-semibold py-3 px-16 rounded-xl h-full'>Hozzáadás a kosárhoz</button>
                 </div>
             </div>

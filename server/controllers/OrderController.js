@@ -1,13 +1,15 @@
 import Order from '../models/Order.js';
 import Product from '../models/Product.js';
 import { createError } from '../utils/error.js';
+import User from "../models/User.js";
 
 export const getAllOrders = async (req, res, next) => {
-    const orders = await Order.find().populate('product');
+    const orders = await Order.find().populate('products');
     res.status(200).json(orders);
 };
 
 export const getOrderById = async (req, res, next) => {
+    console.log(req.body);
     const { id } = req.params;
 
     const order = await Order.findById(id);
@@ -24,6 +26,8 @@ export const getOrderById = async (req, res, next) => {
 };
 
 export const createOrder = async (req, res, next) => {
+    const userID = req.headers.userid;
+    const user = await User.findById(userID);
     const {productId,
         quantity,
         totalPrice,
@@ -35,18 +39,18 @@ export const createOrder = async (req, res, next) => {
         street,
         houseNumber } = req.body;
 
-    if (!productId || !quantity) {
-        return next(createError(400, 'You need to specify a product and a quantity.'));
-    }
-
-    // if (!productId || !quantity || !totalPrice || !firstName || !lastName || !phone || !zip || !city || !street || !houseNumber) {
-    //     return next(createError(400, 'You need to specify the necessary data.'));
+    // if (!productId || !quantity) {
+    //     return next(createError(400, 'You need to specify a product and a quantity.' + productId + quantity));
     // }
+
+    if (!productId || !quantity || !totalPrice || !firstName || !lastName || !phone || !zip || !city || !street || !houseNumber) {
+        return next(createError(400, 'You need to specify the necessary data.'));
+    }
 
     const product = await Product.findById(productId);
 
     if (!product) {
-        return next(createError(404, "No product available!"));
+        return next(createError(404, "No product available: " + product));
     }
 
     if (product.stock < quantity) {
@@ -57,7 +61,8 @@ export const createOrder = async (req, res, next) => {
     await product.save();
 
     const order = new Order({
-        user: req.user._id,
+        // user: req.user._id,
+        user: user,
         products: [
             {
                 product: productId,

@@ -9,7 +9,9 @@ export const getAllOrders = async (req, res, next) => {
 };
 
 export const getOrderById = async (req, res, next) => {
-    console.log(req.body);
+    const userID = req.headers.userid;
+    const user = await User.findById(userID);
+    // console.log(req.body);
     const { id } = req.params;
 
     const order = await Order.findById(id);
@@ -18,7 +20,13 @@ export const getOrderById = async (req, res, next) => {
         return next(createError(404, 'There is no order with the given order number.'));
     }
 
-    if (req.user.isAdmin || req.user._id.toString() === order.user.toString()) {
+    // if (req.user.isAdmin || req.user._id.toString() === order.user.toString()) {
+    //     res.status(200).json(order);
+    // } else {
+    //     return next(createError(403, "You're not authorized!"));
+    // }
+
+    if (user.isAdmin || user._id.toString() === order.user.toString()) {
         res.status(200).json(order);
     } else {
         return next(createError(403, "You're not authorized!"));

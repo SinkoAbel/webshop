@@ -27,7 +27,7 @@ export const createOrder = async (req, res, next) => {
     const {productId,
         quantity,
         totalPrice,
-        irstName,
+        firstName,
         lastName,
         phone,
         zip,

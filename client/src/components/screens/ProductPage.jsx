@@ -32,6 +32,9 @@ const ProductPage = (props) => {
                     <h1 className='text-3xl font-bold mb-6 text-violet-600'>{productDetails.product_name}</h1>
                     <h6 className='text-2xl font-semibold'>Ár: {productDetails.price} Ft.</h6>
                 </div>
+                <div className='flex flex-row items-center gap-12'>
+                    <button className='bg-violet-800 text-white font-semibold py-3 px-16 rounded-xl h-full'>Hozzáadás a kosárhoz</button>
+                </div>
             </div>
         </div>
     );

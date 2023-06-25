@@ -29,7 +29,7 @@ const ProductPage = (props) => {
             </div>
             <div className='flex flex-col gap-4 lg:w-3/4'>
                 <div className='text-left'>
-                    <h1 className='text-3xl font-bold mb-6 text-violet-600'>Termék neve</h1>
+                    <h1 className='text-3xl font-bold mb-6 text-violet-600'>{productDetails.product_name}</h1>
                     <h6 className='text-2xl font-semibold'>Termék ára</h6>
                 </div>
             </div>

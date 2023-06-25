@@ -25,7 +25,7 @@ const ProductPage = (props) => {
     const [amount, setAmount] = useState(1);
 
     useEffect(() => {
-        if (amount < 0) {
+        if (amount < 1) {
             setAmount(1);
         }
     }, [amount]);

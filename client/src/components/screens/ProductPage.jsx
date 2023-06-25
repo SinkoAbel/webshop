@@ -46,7 +46,7 @@ const ProductPage = (props) => {
                         <button className='bg-gray-200 py-2 px-4 rounded-lg text-violet-800 text-3xl' onClick={() => setAmount((prev) => prev + 1)}>+</button>
                     </div>
                     <button className='bg-violet-800 text-white font-semibold py-3 px-16 rounded-xl h-full'>Hozzáadás a kosárhoz</button>
-                    <button className='bg-red-800 text-white font-semibold py-3 px-16 rounded-xl h-full'>Vissza a termékekhez</button>
+                    <a href='/products' type='button' className='bg-red-800 text-white font-semibold py-3 px-16 rounded-xl h-full'>Vissza a termékekhez</a>
                 </div>
             </div>
         </div>

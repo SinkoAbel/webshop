@@ -24,11 +24,24 @@ export const getOrderById = async (req, res, next) => {
 };
 
 export const createOrder = async (req, res, next) => {
-    const { productId, quantity } = req.body;
+    const {productId,
+        quantity,
+        totalPrice,
+        irstName,
+        lastName,
+        phone,
+        zip,
+        city,
+        street,
+        houseNumber } = req.body;
 
     if (!productId || !quantity) {
         return next(createError(400, 'You need to specify a product and a quantity.'));
     }
+
+    // if (!productId || !quantity || !totalPrice || !firstName || !lastName || !phone || !zip || !city || !street || !houseNumber) {
+    //     return next(createError(400, 'You need to specify the necessary data.'));
+    // }
 
     const product = await Product.findById(productId);
 
@@ -44,9 +57,21 @@ export const createOrder = async (req, res, next) => {
     await product.save();
 
     const order = new Order({
-        product: productId,
-        quantity,
         user: req.user._id,
+        products: [
+            {
+                product: productId,
+                quantity,
+            }
+        ],
+        totalPrice,
+        firstName,
+        lastName,
+        phone,
+        zip,
+        city,
+        street,
+        houseNumber,
     });
 
     const savedOrder = await order.save();

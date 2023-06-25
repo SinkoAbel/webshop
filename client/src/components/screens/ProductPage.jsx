@@ -36,10 +36,10 @@ const ProductPage = (props) => {
             </div>
             <div className='flex flex-col gap-4 lg:w-3/4'>
                 <div className='text-left'>
-                    <h1 className='text-3xl font-bold mb-6 text-violet-600'>{productDetails.product_name}</h1>
+                    <h1 className='text-3xl font-bold mb-7 text-violet-600'>{productDetails.product_name}</h1>
                     <h6 className='text-2xl font-semibold'>Ár: {productDetails.price} Ft.</h6>
                 </div>
-                <div className='flex flex-row items-center gap-12'>
+                <div className='flex flex-row items-center gap-12 mt-5'>
                     <div className='flex flex-row items-center'>
                         <button className='bg-gray-200 py-2 px-5 rounded-lg text-violet-800 text-3xl' onClick={() => setAmount((prev) => prev - 1)}>-</button>
                             <span className='py-4 px-6 rounded-lg'>{amount}</span>

@@ -23,6 +23,12 @@ const ProductPage = (props) => {
     }, [endpoint]);
 
     const [amount, setAmount] = useState(1);
+
+    useEffect(() => {
+        if (amount < 0) {
+            setAmount(1);
+        }
+    }, [amount]);
  
     return (
         <div className='flex flex-col justify-between lg:flex-row gap-16 lg:items-center'>

@@ -31,7 +31,8 @@ const CartSummary = (props) => {
                         <div className="flex mt-10 mb-5">
                             <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">Termékek</h3>
                             <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Mennyiség</h3>
-                            <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Ár</h3>
+                            <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">EgységÁr</h3>
+                            <h3 className="font-semibold text-center text-gray-600 text-xs uppercase w-1/5 text-center">Összesen</h3>
                         </div>
 
 
@@ -70,6 +71,7 @@ const CartSummary = (props) => {
                                            </svg>
                                        </div>
                                        <span className="text-center w-1/5 font-semibold text-sm">{item.price} Ft</span>
+                                       <span className="text-center w-1/5 font-semibold text-sm">{item.price * quantity[index]} Ft</span>
                                    </div>
 
                                ) ;

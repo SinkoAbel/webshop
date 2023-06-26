@@ -17,8 +17,6 @@ const ProductPage = (props) => {
     let {isLoggedIn} = useSelector((state) => state.login);
     const dispatch = useDispatch();
 
-    console.log(isLoggedIn);
-
     useEffect(() => {
         const fetchEndpoint = async () => {
             await axios.get(endpoint)
@@ -40,7 +38,8 @@ const ProductPage = (props) => {
 
     const handleAddItemsToCart = () => {
         dispatch(addItemsToCart(productDetails));
-        console.log("Product added to cart.")
+        console.log(productDetails);
+        console.log(amount);
     };
 
  
@@ -62,7 +61,8 @@ const ProductPage = (props) => {
                                 <span className='py-4 px-6 rounded-lg'>{amount}</span>
                                 <button className='bg-gray-200 py-2 px-4 rounded-lg text-violet-800 text-3xl' onClick={() => setAmount((prev) => prev + 1)}>+</button>
                             </div>
-                            <button className='bg-violet-800 text-white font-semibold py-3 px-16 rounded-xl h-full'>
+                            <button className='bg-violet-800 text-white font-semibold py-3 px-16 rounded-xl h-full'
+                                    onClick={handleAddItemsToCart}>
                                 Hozzáadás a kosárhoz
                             </button>
                         </>

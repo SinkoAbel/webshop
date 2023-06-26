@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from "react-redux";
 import {removeItemsFromCart, increaseProductQty, decreaseProductQty} from "../../reducers/cartSlice";
 import {Link} from "react-router-dom";
@@ -7,6 +7,16 @@ const CartSummary = (props) => {
 
     const {items, totalPrice, quantity} = useSelector((state) => state.cart);
     const dispatch = useDispatch();
+
+    const [isCartEmpty, setIsCartEmpty] = useState(true);
+
+    useEffect(() => {
+        if (items.length > 0)
+            setIsCartEmpty(false);
+        else
+            setIsCartEmpty(true);
+    }, [items]);
+
 
     const handleItemRemoveFromCart = (product) => {
         dispatch(removeItemsFromCart(product));
@@ -27,6 +37,9 @@ const CartSummary = (props) => {
                     <div className="w-3/4 bg-white px-10 py-10">
                         <div className="flex justify-between border-b pb-8">
                             <h1 className="font-semibold text-2xl">Kosár</h1>
+                            {isCartEmpty &&
+                                <h2 className="font-semibold text-2xl">A kosara jelenleg üres!</h2>
+                            }
                         </div>
                         <div className="flex mt-10 mb-5">
                             <h3 className="font-semibold text-gray-600 text-xs uppercase w-2/5">Termékek</h3>
@@ -98,9 +111,11 @@ const CartSummary = (props) => {
                                 <span>Összesen fizetendő</span>
                                 <span>{totalPrice} Ft</span>
                             </div>
-                            <button onClick={props.nextPhase}
-                                className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Megrendelés
-                            </button>
+                            {!isCartEmpty &&
+                                <button onClick={props.nextPhase}
+                                        className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Megrendelés
+                                </button>
+                            }
                         </div>
                     </div>
 

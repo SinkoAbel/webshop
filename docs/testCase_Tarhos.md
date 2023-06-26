@@ -8,3 +8,4 @@
 | 3             | Regisztrációs felület megjelenésének tesztelése   | A webshop regisztrációs űrlapja, felülete és kinézete rendben megjelenik és működik.                     | sikeres    | -          | Tarhos László    | 2023.04.14. |
 | 4             | Bejelentkezési felület megjelenésének tesztelése  | A webshop bejelentkezésének űrlapja, felülete és kinézete rendben megjelenik és működik.                 | sikeres    | -          | Tarhos László    | 2023.04.18. |
 | 5             | A webshop főoldalának kinézetének tesztelése      | A webshop főoldalának felülete és kinézete rendben megjelenik.                                           | sikeres    | -          | Tarhos László    | 2023.04.22. |
+| 6             | Termékek oldal kinézetének tesztelése             | A termékek oldalon a termékek helyesen jelennek meg: termék képe, neve, ára.                             | sikeres    | -          | Tarhos László    | 2023.04.28. |

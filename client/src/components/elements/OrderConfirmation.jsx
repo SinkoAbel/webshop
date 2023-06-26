@@ -21,9 +21,14 @@ const OrderConfirmation = (props) => {
     useEffect(() => {
         if (!isRequestSent) {
 
+            const objIDs = [];
+            for (let i = 0; i < items.length; i++) {
+                objIDs.push(items[i]._id);
+            }
+
             const orderObject = {
-                productId: items[0]._id,
-                quantity: quantity[0],
+                productId: objIDs,
+                quantity: quantity,
                 totalPrice: totalPrice,
                 firstName: firstName,
                 lastName: lastName,

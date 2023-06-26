@@ -36,7 +36,8 @@ export const getOrderById = async (req, res, next) => {
 export const createOrder = async (req, res, next) => {
     const userID = req.headers.userid;
     const user = await User.findById(userID);
-    const {productId,
+    const {
+        productId,
         quantity,
         totalPrice,
         firstName,
@@ -69,7 +70,6 @@ export const createOrder = async (req, res, next) => {
     await product.save();
 
     const order = new Order({
-        // user: req.user._id,
         user: user,
         products: [
             {

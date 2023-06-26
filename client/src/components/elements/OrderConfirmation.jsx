@@ -1,13 +1,58 @@
-import React from 'react';
-import {useDispatch} from "react-redux";
+import React, {useState, useEffect} from 'react';
+import {useDispatch, useSelector} from "react-redux";
 import {clearState} from "../../reducers/personalDataSlice";
 import {clearCartState} from "../../reducers/cartSlice";
+import axios from "axios";
 
 const OrderConfirmation = (props) => {
 
-    const dispatch = useDispatch();
-    dispatch(clearState());
-    dispatch(clearCartState());
+    const endpoint = 'http://localhost:8800/api/orders/';
+
+    const [isRequestSent, setIsRequestSent] = useState(false);
+
+    const {id} = useSelector((state) => state.login);
+    const {lastName, firstName, zip, city, street, houseNumber, phone} = useSelector((state) => state.personalData);
+    const {quantity, items, totalPrice} = useSelector((state) => state.cart);
+
+    const orderObject = {
+        productId: items[0]._id,
+        quantity: quantity[0],
+        totalPrice: totalPrice,
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        zip: zip,
+        city: city,
+        street: street,
+        houseNumber: houseNumber
+    };
+
+    const headers = {
+        'Content-Type': 'application/json',
+        'userid': id
+    }
+
+    useEffect(() => {
+        if (!isRequestSent) {
+            axios.post(endpoint, orderObject, {headers})
+                .then(response => {
+                    console.log("Sikeres kérés!")
+                    console.log(response.data);
+                })
+                .catch(error => {
+                    console.log("Hupsz...")
+                    console.log(error);
+                });
+
+            setIsRequestSent(true);
+        }
+    }, []);
+
+    setTimeout(() => {
+        const dispatch = useDispatch();
+        dispatch(clearState());
+        dispatch(clearCartState());
+    }, 2000);
 
     return (
         <div className="mt-10">

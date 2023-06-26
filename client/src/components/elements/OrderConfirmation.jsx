@@ -6,8 +6,8 @@ import {clearCartState} from "../../reducers/cartSlice";
 const OrderConfirmation = (props) => {
 
     const dispatch = useDispatch();
-    dispatch(clearState);
-    dispatch(clearState)
+    dispatch(clearState());
+    dispatch(clearCartState());
 
     return (
         <div className="mt-10">

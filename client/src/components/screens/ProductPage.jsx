@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {useParams} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
+import {addItemsToCart} from "../../reducers/cartSlice";
 import axios from "axios";
 
 const ProductPage = (props) => {
@@ -13,6 +14,7 @@ const ProductPage = (props) => {
     const [amount, setAmount] = useState(1);
 
     const {items} = useSelector((state) => state.cart);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const fetchEndpoint = async () => {
@@ -33,7 +35,7 @@ const ProductPage = (props) => {
         }
     }, [amount]);
 
-    const handleAddItemsToCart = () => {
+    const handleAddItemsToCart = (event) => {
 
     };
 

@@ -19,6 +19,8 @@ export const loginSlice = createSlice({
         },
         logout: (state) => {
             state.isLoggedIn = false;
+            state.email = null;
+            state.password = null;
         }
     }
 });

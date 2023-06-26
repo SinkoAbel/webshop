@@ -18,26 +18,27 @@ const OrderConfirmation = (props) => {
     const {lastName, firstName, zip, city, street, houseNumber, phone} = useSelector((state) => state.personalData);
     const {quantity, items, totalPrice} = useSelector((state) => state.cart);
 
-    const orderObject = {
-        productId: items[0]._id,
-        quantity: quantity[0],
-        totalPrice: totalPrice,
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
-        zip: zip,
-        city: city,
-        street: street,
-        houseNumber: houseNumber
-    };
-
-    const headers = {
-        'Content-Type': 'application/json',
-        'userid': id
-    }
-
     useEffect(() => {
         if (!isRequestSent) {
+
+            const orderObject = {
+                productId: items[0]._id,
+                quantity: quantity[0],
+                totalPrice: totalPrice,
+                firstName: firstName,
+                lastName: lastName,
+                phone: phone,
+                zip: zip,
+                city: city,
+                street: street,
+                houseNumber: houseNumber
+            };
+
+            const headers = {
+                'Content-Type': 'application/json',
+                'userid': id
+            }
+
             axios.post(endpoint, orderObject, {headers})
                 .then(response => {
                     console.log("Sikeres kérés!")
@@ -50,13 +51,13 @@ const OrderConfirmation = (props) => {
 
             setIsRequestSent(true);
         }
-    }, []);
+    }, [endpoint]);
 
     setTimeout(() => {
         navigate('/');
         dispatch(clearState());
         dispatch(clearCartState());
-    }, 2000);
+    }, 3000);
 
     return (
         <div className="mt-10">

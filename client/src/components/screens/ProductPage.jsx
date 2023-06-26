@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useParams} from "react-router-dom";
+import {useSelector, useDispatch} from "react-redux";
 import axios from "axios";
 
 const ProductPage = (props) => {
@@ -7,8 +8,11 @@ const ProductPage = (props) => {
     const productIdObject = useParams();
     const productId = productIdObject.productId;
     const endpoint = `http://localhost:8800/api/products/${productId}`;
+
     const [productDetails, setProductDetails] = useState({});
     const [amount, setAmount] = useState(1);
+
+    const {items} = useSelector((state) => state.cart);
 
     useEffect(() => {
         const fetchEndpoint = async () => {
@@ -28,6 +32,11 @@ const ProductPage = (props) => {
             setAmount(1);
         }
     }, [amount]);
+
+    const handleAddItemsToCart = () => {
+
+    };
+
  
     return (
         <div className='flex flex-col justify-between lg:flex-row gap-16 lg:items-center'>

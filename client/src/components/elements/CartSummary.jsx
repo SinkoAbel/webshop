@@ -1,6 +1,6 @@
 import React from 'react';
 import {useSelector, useDispatch} from "react-redux";
-import {removeItemsFromCart} from "../../reducers/cartSlice";
+import {removeItemsFromCart, increaseProductQty, decreaseProductQty} from "../../reducers/cartSlice";
 import {Link} from "react-router-dom";
 
 const CartSummary = (props) => {
@@ -10,6 +10,14 @@ const CartSummary = (props) => {
 
     const handleItemRemoveFromCart = (product) => {
         dispatch(removeItemsFromCart(product));
+    };
+
+    const handleIncreaseQty = (newQty, modifyIndex) => {
+        dispatch(increaseProductQty({newQty, modifyIndex}));
+    };
+
+    const handleDecreaseQty = (newQty, modifyIndex) => {
+        dispatch(decreaseProductQty({newQty, modifyIndex}));
     };
 
     return (
@@ -47,14 +55,16 @@ const CartSummary = (props) => {
                                            </div>
                                        </div>
                                        <div className="flex justify-center w-1/5">
-                                           <svg className="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
+                                           <svg className="fill-current text-gray-600 w-3" viewBox="0 0 448 512"
+                                                onClick={() => handleDecreaseQty(quantity[index], index)}>
                                                <path
                                                    d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
                                            </svg>
 
                                            <input type="text" className="mx-2 border text-center w-8" value={quantity[index]}/>
 
-                                           <svg className="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
+                                           <svg className="fill-current text-gray-600 w-3" viewBox="0 0 448 512"
+                                               onClick={() => handleIncreaseQty(quantity[index], index)}>
                                                <path
                                                    d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
                                            </svg>

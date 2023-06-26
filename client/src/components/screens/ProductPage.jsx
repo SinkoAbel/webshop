@@ -12,6 +12,7 @@ const ProductPage = (props) => {
 
     const [productDetails, setProductDetails] = useState({});
     const [amount, setAmount] = useState(1);
+    const [isPlaceToCartClicked, setIsPlaceToCartClicked] = useState(false);
 
     const {items} = useSelector((state) => state.cart);
     let {isLoggedIn} = useSelector((state) => state.login);
@@ -38,6 +39,7 @@ const ProductPage = (props) => {
 
     const handleAddItemsToCart = () => {
         dispatch(addItemsToCart({productDetails, amount}));
+        setIsPlaceToCartClicked(true);
     };
 
  
@@ -47,6 +49,11 @@ const ProductPage = (props) => {
                 <img src={productDetails.photo_path} alt="" className='w-full h-full aspect-square object-cover rounded-xl'/>
             </div>
             <div className='flex flex-col gap-4 lg:w-3/4'>
+                {isPlaceToCartClicked &&
+                    <div className="p-10 bg-green-100 rounded-2xl font-bold text-2xl">
+                        A termék a kosárba került.
+                    </div>
+                }
                 <div className='text-left'>
                     <h1 className='text-3xl font-bold mb-7 text-violet-600'>{productDetails.product_name}</h1>
                     <h6 className='text-2xl font-semibold'>Ár: {productDetails.price} Ft.</h6>

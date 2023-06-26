@@ -12,6 +12,13 @@ export const verifyUser = async (req, res, next) => {
         console.log(err);
     }
 
+    // if (req.user) {
+    //     console.log(`User is set: ${req.user._id}`);
+    // } else {
+    //     console.log('User is not set.');
+    // }
+
+
     next();
 };
 

@@ -5,6 +5,7 @@ const ValidatePersonalData = (props) => {
 
     const dispatch = useDispatch();
     const {lastName, firstName, zip, city, street, houseNumber, phone} = useSelector((state) => state.personalData);
+    const {quantity, items, totalPrice} = useSelector((state) => state.cart);
 
     const endpoint = '';
 
@@ -24,17 +25,21 @@ const ValidatePersonalData = (props) => {
                         <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Telefonszám:</dt>
                         <dd className="text-lg font-semibold">{phone}</dd>
                     </div>
+
                     <div className="flex flex-col pt-3">
                         <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Megrendelt termékek:</dt>
-                        <dd className="text-lg font-semibold">Iphone töltő - 10.000 Ft</dd>
+                        {
+                        items.map((item, index) => {
+                            return (
+                                <dd className="text-lg font-semibold">{item.product_name} - {quantity[index]} db</dd>
+                            )
+                        })
+                    }
                     </div>
-                    <div className="flex flex-col pt-3">
-                        <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Szállítás:</dt>
-                        <dd className="text-lg font-semibold">Standard szállítás - 1000 Ft</dd>
-                    </div>
+
                     <div className="flex flex-col pt-3">
                         <dt className="mb-1 text-gray-500 md:text-lg dark:text-gray-400">Összesen fizetendő:</dt>
-                        <dd className="text-lg font-semibold">11.000 Ft</dd>
+                        <dd className="text-lg font-semibold">{totalPrice} Ft</dd>
                     </div>
                 </dl>
             </div>

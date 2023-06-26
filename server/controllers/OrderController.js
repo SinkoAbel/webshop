@@ -20,11 +20,6 @@ export const getOrderById = async (req, res, next) => {
         return next(createError(404, 'There is no order with the given order number.'));
     }
 
-    // if (req.user.isAdmin || req.user._id.toString() === order.user.toString()) {
-    //     res.status(200).json(order);
-    // } else {
-    //     return next(createError(403, "You're not authorized!"));
-    // }
 
     if (user.isAdmin || user._id.toString() === order.user.toString()) {
         res.status(200).json(order);
@@ -36,7 +31,12 @@ export const getOrderById = async (req, res, next) => {
 export const createOrder = async (req, res, next) => {
     const userID = req.headers.userid;
     const user = await User.findById(userID);
-    const {productId,
+
+    console.log(req.body);
+    console.log("==========================");
+
+    const {
+        productId,
         quantity,
         totalPrice,
         firstName,
@@ -47,9 +47,6 @@ export const createOrder = async (req, res, next) => {
         street,
         houseNumber } = req.body;
 
-    // if (!productId || !quantity) {
-    //     return next(createError(400, 'You need to specify a product and a quantity.' + productId + quantity));
-    // }
 
     if (!productId || !quantity || !totalPrice || !firstName || !lastName || !phone || !zip || !city || !street || !houseNumber) {
         return next(createError(400, 'You need to specify the necessary data.'));
@@ -65,18 +62,21 @@ export const createOrder = async (req, res, next) => {
         return next(createError(400, 'There is not enough product in our stock.'));
     }
 
-    product.stock -= quantity;
-    await product.save();
+    const modifiedData = [];
+
+    for (let i = 0; i < productId.length; i++) {
+        modifiedData.push({
+            product: productId[i],
+            quantity: quantity[i]
+        });
+    }
+
+    //product.stock -= quantity;
+    //await product.save();
 
     const order = new Order({
-        // user: req.user._id,
         user: user,
-        products: [
-            {
-                product: productId,
-                quantity,
-            }
-        ],
+        products: modifiedData,
         totalPrice,
         firstName,
         lastName,

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { setEmail, setPassword, login } from "../../reducers/loginSlice";
+import { setId ,setEmail, setPassword, login } from "../../reducers/loginSlice";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import ErrorAlert from "../elements/ErrorAlert";
@@ -35,6 +35,7 @@ const Login = () => {
       sessionStorage.setItem('email', JSON.stringify({ email: res.data.email }));
       sessionStorage.setItem('isAdmin', JSON.stringify({ isAdmin: res.data.isAdmin }));
       sessionStorage.setItem('_id', JSON.stringify({ _id: res.data._id }));
+      dispatch(setId(res.data._id));
 
       setTimeout(() => {
         dispatch(login());

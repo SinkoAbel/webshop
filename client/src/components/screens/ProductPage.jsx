@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
 import {addItemsToCart} from "../../reducers/cartSlice";
 import axios from "axios";
@@ -14,7 +14,10 @@ const ProductPage = (props) => {
     const [amount, setAmount] = useState(1);
 
     const {items} = useSelector((state) => state.cart);
+    let {isLoggedIn} = useSelector((state) => state.login);
     const dispatch = useDispatch();
+
+    console.log(isLoggedIn);
 
     useEffect(() => {
         const fetchEndpoint = async () => {
@@ -35,8 +38,9 @@ const ProductPage = (props) => {
         }
     }, [amount]);
 
-    const handleAddItemsToCart = (event) => {
-
+    const handleAddItemsToCart = () => {
+        dispatch(addItemsToCart(productDetails));
+        console.log("Product added to cart.")
     };
 
  
@@ -51,13 +55,21 @@ const ProductPage = (props) => {
                     <h6 className='text-2xl font-semibold'>Ár: {productDetails.price} Ft.</h6>
                 </div>
                 <div className='flex flex-row items-center gap-12 mt-5'>
-                    <div className='flex flex-row items-center'>
-                        <button className='bg-gray-200 py-2 px-5 rounded-lg text-violet-800 text-3xl' onClick={() => setAmount((prev) => prev - 1)}>-</button>
-                            <span className='py-4 px-6 rounded-lg'>{amount}</span>
-                        <button className='bg-gray-200 py-2 px-4 rounded-lg text-violet-800 text-3xl' onClick={() => setAmount((prev) => prev + 1)}>+</button>
-                    </div>
-                    <button className='bg-violet-800 text-white font-semibold py-3 px-16 rounded-xl h-full'>Hozzáadás a kosárhoz</button>
-                    <a href='/products' type='button' className='bg-red-800 text-white font-semibold py-3 px-16 rounded-xl h-full'>Vissza a termékekhez</a>
+                    {isLoggedIn &&
+                        <>
+                            <div className='flex flex-row items-center'>
+                                <button className='bg-gray-200 py-2 px-5 rounded-lg text-violet-800 text-3xl' onClick={() => setAmount((prev) => prev - 1)}>-</button>
+                                <span className='py-4 px-6 rounded-lg'>{amount}</span>
+                                <button className='bg-gray-200 py-2 px-4 rounded-lg text-violet-800 text-3xl' onClick={() => setAmount((prev) => prev + 1)}>+</button>
+                            </div>
+                            <button className='bg-violet-800 text-white font-semibold py-3 px-16 rounded-xl h-full'>
+                                Hozzáadás a kosárhoz
+                            </button>
+                        </>
+                    }
+                    <Link to={'/products'} className='bg-red-800 text-white font-semibold py-3 px-16 rounded-xl h-full'>
+                        Vissza a termékekhez
+                    </Link>
                 </div>
             </div>
         </div>

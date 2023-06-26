@@ -1,11 +1,13 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
 import {clearState} from "../../reducers/personalDataSlice";
+import {clearCartState} from "../../reducers/cartSlice";
 
 const OrderConfirmation = (props) => {
 
     const dispatch = useDispatch();
-    dispatch(clearState());
+    dispatch(clearState);
+    dispatch(clearState)
 
     return (
         <div className="mt-10">

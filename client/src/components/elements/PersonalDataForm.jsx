@@ -82,13 +82,13 @@ const PersonalDataForm = (props) => {
                     <div className="relative z-0 w-full mb-6 group">
                         <input type="text" name="floating_last_name" id="floating_last_name" onChange={handleLastNameChange}
                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                               placeholder=" " required/>
+                               placeholder=" " value={firstName} required/>
                         <label htmlFor="floating_last_name"
                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             Vezetéknév</label>
                     </div>
                     <div className="relative z-0 w-full mb-6 group text-left">
-                        <input type="text" name="floating_first_name" id="floating_first_name" onChange={handleFirstNameChange}
+                        <input type="text" name="floating_first_name" id="floating_first_name" onChange={handleFirstNameChange} value={lastName}
                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                placeholder=" " required/>
                         <label htmlFor="floating_first_name"
@@ -100,7 +100,7 @@ const PersonalDataForm = (props) => {
                     <div className="relative z-0 w-full mb-6 group">
                         <input type="text" name="floating_zip" id="floating_zip" onChange={handleZipChange}
                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                               placeholder=" " required/>
+                               placeholder=" " value={zip} required/>
                         <label htmlFor="floating_zip"
                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             Irányítószám</label>
@@ -116,7 +116,7 @@ const PersonalDataForm = (props) => {
                 </div>
                 <div className="grid md:grid-cols-2 md:gap-6 text-left">
                     <div className="relative z-0 w-full mb-6 group">
-                        <input type="text" name="floating_street" id="floating_street" onChange={handleStreetChange}
+                        <input type="text" name="floating_street" id="floating_street" value={street} onChange={handleStreetChange}
                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                placeholder=" " required/>
                         <label htmlFor="floating_street"
@@ -124,7 +124,7 @@ const PersonalDataForm = (props) => {
                             Utca</label>
                     </div>
                     <div className="relative z-0 w-full mb-6 group text-left">
-                        <input type="text" name="floating_house_number" id="floating_house_number" onChange={handleHouseNumberChange}
+                        <input type="text" name="floating_house_number" value={houseNumber} id="floating_house_number" onChange={handleHouseNumberChange}
                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                                placeholder=" " required/>
                         <label htmlFor="floating_house_number"
@@ -136,7 +136,7 @@ const PersonalDataForm = (props) => {
                     <div className="relative z-0 w-full mb-6 group">
                         <input type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" name="floating_phone" id="floating_phone" onChange={handlePhoneNumberChange}
                                className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                               placeholder=" " required/>
+                               placeholder=" " value={phone} required/>
                         <label htmlFor="floating_phone"
                                className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">
                             Mobil (+36...)</label>

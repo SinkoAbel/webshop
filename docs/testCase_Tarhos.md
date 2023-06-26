@@ -10,3 +10,4 @@
 | 5             | A webshop főoldalának kinézetének tesztelése      | A webshop főoldalának felülete és kinézete rendben megjelenik.                                           | sikeres    | -          | Tarhos László    | 2023.04.22. |
 | 6             | Termékek oldal kinézetének tesztelése             | A termékek oldalon a termékek helyesen jelennek meg: termék képe, neve, ára.                             | sikeres    | -          | Tarhos László    | 2023.04.28. |
 | 7             | A kiválasztott termék oldalának tesztelése        | A kiválasztott termék adatlapja és a termék adatai helyesen jelennek meg.                                | sikeres    | -          | Tarhos László    | 2023.06.25. |
+| 8             | A termék rendelési funkciók tesztelése            | A termékmoldalon a kosárba helyezés, és a rendelés mennyiségének a funkcióinak tesztelése sikeres.       | sikeres    | -          | Tarhos László    | 2023.06.26. |

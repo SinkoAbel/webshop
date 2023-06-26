@@ -3,10 +3,14 @@ import {useDispatch, useSelector} from "react-redux";
 import {clearState} from "../../reducers/personalDataSlice";
 import {clearCartState} from "../../reducers/cartSlice";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const OrderConfirmation = (props) => {
 
     const endpoint = 'http://localhost:8800/api/orders/';
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [isRequestSent, setIsRequestSent] = useState(false);
 
@@ -49,7 +53,7 @@ const OrderConfirmation = (props) => {
     }, []);
 
     setTimeout(() => {
-        const dispatch = useDispatch();
+        navigate('/');
         dispatch(clearState());
         dispatch(clearCartState());
     }, 2000);

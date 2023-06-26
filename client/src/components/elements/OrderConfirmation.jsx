@@ -9,8 +9,9 @@ const OrderConfirmation = (props) => {
 
     return (
         <div className="mt-10">
-            <p>Köszönjük, hogy minket választott!</p>
+            <p>Köszönjük megrendelését!</p>
             <p>Rendelését sikeresen rögzítettük a rendszerünkben!</p>
+            <p>Kollégánk hamarosan felveszi Önnel a kapcsolatot!</p>
         </div>
     );
 };

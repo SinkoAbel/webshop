@@ -38,8 +38,6 @@ const ProductPage = (props) => {
 
     const handleAddItemsToCart = () => {
         dispatch(addItemsToCart(productDetails));
-        console.log(productDetails);
-        console.log(amount);
     };
 
  

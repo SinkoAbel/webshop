@@ -30,12 +30,16 @@ export const cartSlice = createSlice({
         },
         increaseProductQty: (state, action) => {
             const {newQty, modifyIndex} = action.payload;
+            const product = state.items[modifyIndex];
             state.quantity[modifyIndex] = newQty+1;
+            state.totalPrice += product.price;
         },
         decreaseProductQty: (state, action) => {
             const {newQty, modifyIndex} = action.payload;
+            const product = state.items[modifyIndex];
             if (state.quantity[modifyIndex] === 1) return;
             state.quantity[modifyIndex] = newQty-1;
+            state.totalPrice -= product.price;
         },
     }
 });

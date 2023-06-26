@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 const CartSummary = (props) => {
 
-    const {items, totalPrice} = useSelector((state) => state.cart);
+    const {items, totalPrice, quantity} = useSelector((state) => state.cart);
     const dispatch = useDispatch();
 
     const handleItemRemoveFromCart = (product) => {
@@ -28,7 +28,7 @@ const CartSummary = (props) => {
 
 
                         {
-                            items.map(item => {
+                            items.map((item, index) => {
                                return (
                                    <div className="flex items-center hover:bg-gray-100 -mx-8 px-6 py-5">
                                        <div className="flex w-2/5">
@@ -52,7 +52,7 @@ const CartSummary = (props) => {
                                                    d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"/>
                                            </svg>
 
-                                           <input className="mx-2 border text-center w-8" type="text" value="1"/>
+                                           <input type="text" className="mx-2 border text-center w-8" value={quantity[index]}/>
 
                                            <svg className="fill-current text-gray-600 w-3" viewBox="0 0 448 512">
                                                <path
@@ -79,19 +79,12 @@ const CartSummary = (props) => {
                         <h1 className="font-semibold text-2xl border-b pb-8">Összesítő</h1>
                         <div className="flex justify-between mt-10 mb-5">
                             <span className="font-semibold text-sm uppercase">Termékek: {items.length} db</span>
-                            <span className="font-semibold text-sm">{totalPrice} Ft</span>
                         </div>
-                        <div>
-                            <label className="font-medium inline-block mb-3 text-sm uppercase">Szállítás</label>
-                            <select className="block p-2 text-gray-600 w-full text-sm">
-                                <option>Standard szállítás (MPL) - 1000 Ft</option>
-                                <option>Prémium szállítás (GLS) - 2000 Ft</option>
-                            </select>
-                        </div>
+
                         <div className="border-t mt-8">
                             <div className="flex font-semibold justify-between py-6 text-sm uppercase">
                                 <span>Összesen fizetendő</span>
-                                <span>$600</span>
+                                <span>{totalPrice} Ft</span>
                             </div>
                             <button onClick={props.nextPhase}
                                 className="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full">Megrendelés

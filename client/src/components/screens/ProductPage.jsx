@@ -37,7 +37,7 @@ const ProductPage = (props) => {
     }, [amount]);
 
     const handleAddItemsToCart = () => {
-        dispatch(addItemsToCart(productDetails));
+        dispatch(addItemsToCart({productDetails, amount}));
     };
 
  
